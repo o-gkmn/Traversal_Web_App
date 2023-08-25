@@ -2,7 +2,7 @@
 
 namespace DataAccessLayer.Abstract
 {
-    public interface IGuideDal
+    public interface IGuideDal : IGenericDal<Guide>
     {
 
     }
