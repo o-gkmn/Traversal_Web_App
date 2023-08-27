@@ -20,17 +20,17 @@ namespace BusinnessLayer.Concrate
 
         public void TDelete(Comment t)
         {
-            throw new NotImplementedException();
+            _commentDal.Delete(t);
         }
 
         public Comment? TGetById(int id)
         {
-            throw new NotImplementedException();
+            return _commentDal.GetByID(id);
         }
 
         public List<Comment> TGetList()
         {
-            throw new NotImplementedException();
+            return _commentDal.GetList();
         }
 
         public void TUpdate(Comment t)
@@ -41,6 +41,11 @@ namespace BusinnessLayer.Concrate
         public List<Comment> TGetDestinationByID(int id)
         {
             return _commentDal.GetListByFilter(x => x.DestinationID.Equals(id)).ToList();
+        }
+
+        public List<Comment> TGetListCommentsWithDestination()
+        {
+            return _commentDal.GetListCommentsWithDestination();
         }
     }
 }

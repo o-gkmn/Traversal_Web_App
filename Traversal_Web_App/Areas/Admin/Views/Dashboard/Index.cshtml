@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    @await Component.InvokeAsync("_DashboardBannerPartial")
+
+    @await Component.InvokeAsync("_Cards1StatisticPartial")
+
+    @await Component.InvokeAsync("_TotalRevenuePartial")
+
+    @await Component.InvokeAsync("_Cards2StatisticPartial")
+
+
+</div>
+<div class="row">
+
+    @await Component.InvokeAsync("_DestinationStatisticPartial")
+
+    @await Component.InvokeAsync("_DestinationStatistic2Partial")
+
+    @await Component.InvokeAsync("_DashboardGuideListPartial")
+</div>
+
+<script src="/sneat-1.0.0/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+<script src="/sneat-1.0.0/assets/js/dashboards-analytics.js"></script>

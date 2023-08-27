@@ -15,12 +15,12 @@ namespace BusinnessLayer.Concrate
 
         public void TAdd(Destination t)
         {
-            throw new NotImplementedException();
+            _destinationDal.Insert(t);
         }
 
         public void TDelete(Destination t)
         {
-            throw new NotImplementedException();
+            _destinationDal.Delete(t);
         }
 
         public Destination? TGetById(int id)
@@ -35,7 +35,7 @@ namespace BusinnessLayer.Concrate
 
         public void TUpdate(Destination t)
         {
-            throw new NotImplementedException();
+            _destinationDal.Update(t);
         }
     }
 }

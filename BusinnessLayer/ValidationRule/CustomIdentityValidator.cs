@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Traversal_Web_App.Models
+namespace BusinnessLayer.ValidationRule
 {
     public class CustomIdentityValidator : IdentityErrorDescriber
     {

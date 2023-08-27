@@ -1,17 +1,19 @@
+using BusinnessLayer.Container;
+using BusinnessLayer.ValidationRule;
 using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Traversal_Web_App.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<Context>();
-builder.Services.AddIdentity<AppUser, AppRole>()
-    .AddEntityFrameworkStores<Context>()
-    .AddErrorDescriber<CustomIdentityValidator>();
+builder.Services.ConfigureDbContext();
+builder.Services.ConfigureIdentity();
+builder.Services.ConfigureServices();
+builder.Services.ConfigureDataAccess();
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddMvc(config =>
 {
     var policy = new AuthorizationPolicyBuilder()
@@ -33,6 +35,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseStatusCodePagesWithReExecute("/ErrorPage/Error404", "?code={0}");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -48,6 +51,7 @@ app.UseEndpoints(endpoints =>
       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
     );
 });
+
 
 app.MapControllerRoute(
     name: "default",
