@@ -5,7 +5,9 @@ using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace BusinnessLayer.Container
 {
@@ -39,6 +41,27 @@ namespace BusinnessLayer.Container
             services.AddScoped<IAppUserDal, EFAppUserDal>();
             services.AddScoped<IReservationDal, EFReservationDal>();
             services.AddScoped<IGuideDal, EFGuideDal>();
+        }
+
+        public static void ConfigureLogging(this IServiceCollection services)
+        {
+            ILoggerFactory loggerFactory = new LoggerFactory();
+
+            services.AddLogging(x =>
+            {
+                x.ClearProviders();
+                x.SetMinimumLevel(LogLevel.Debug);
+                x.AddDebug();
+            });
+
+            var path = Directory.GetCurrentDirectory();
+            Console.WriteLine(path);
+            loggerFactory.AddFile($"{path}\\Logs\\Log1.txt");
+        }
+
+        public static void ConfigureValidator(this IServiceCollection services)
+        {
+            services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
         }
     }
 }

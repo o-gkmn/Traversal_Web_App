@@ -1,7 +1,5 @@
 using BusinnessLayer.Container;
-using BusinnessLayer.ValidationRule;
-using DataAccessLayer.Concrete;
-using EntityLayer.Concrete;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 
@@ -12,6 +10,8 @@ builder.Services.ConfigureDbContext();
 builder.Services.ConfigureIdentity();
 builder.Services.ConfigureServices();
 builder.Services.ConfigureDataAccess();
+//builder.Services.ConfigureLogging();
+builder.Services.ConfigureValidator();
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddMvc(config =>
