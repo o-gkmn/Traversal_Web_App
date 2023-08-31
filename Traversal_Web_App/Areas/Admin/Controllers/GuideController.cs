@@ -65,10 +65,12 @@ namespace Traversal_Web_App.Areas.Admin.Controllers
 
         public IActionResult ChangeToTrue(int id)
         {
+            _guideService.TChangeToTrueByGuide(id);
             return RedirectToAction("Index");
         }
         public IActionResult ChangeToFalse(int id)
         {
+            _guideService.TChangeToFalseByGuide(id);
             return RedirectToAction("Index");
         }
 

@@ -32,6 +32,8 @@ namespace BusinnessLayer.Container
             services.AddScoped<IAppUserService, AppUserManager>();
             services.AddScoped<IReservationService, ReservationManager>();
             services.AddScoped<IGuideService, GuideManager>();
+            services.AddScoped<IExcelService, ExcelManager>();
+            services.AddScoped<IPdfService, PdfManager>();
         }
 
         public static void ConfigureDataAccess(this IServiceCollection services)

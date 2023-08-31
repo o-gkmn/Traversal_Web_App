@@ -1,13 +1,20 @@
-﻿using ClosedXML.Excel;
+﻿using BusinnessLayer.Abstract;
+using ClosedXML.Excel;
 using DataAccessLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
-using OfficeOpenXml;
 using Traversal_Web_App.Models;
 
 namespace Traversal_Web_App.Controllers
 {
     public class ExcelController : Controller
     {
+        private readonly IExcelService _excelService;
+
+        public ExcelController(IExcelService excelService)
+        {
+            _excelService = excelService;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -31,22 +38,7 @@ namespace Traversal_Web_App.Controllers
 
         public IActionResult StaticExcelReport()
         {
-            ExcelPackage excel = new ExcelPackage();
-            var workSheet = excel.Workbook.Worksheets.Add("Sayfa 1");
-            workSheet.Cells[1, 1].Value = "Rota";
-            workSheet.Cells[1, 2].Value = "Rehber";
-            workSheet.Cells[1, 3].Value = "Kontenjan";
-
-            workSheet.Cells[2, 1].Value = "Gürcistan Batum Türü";
-            workSheet.Cells[2, 2].Value = "Kadircan Eyüp";
-            workSheet.Cells[2, 3].Value = "50";
-
-            workSheet.Cells[2, 1].Value = "Sırbistan - Makedonya";
-            workSheet.Cells[2, 2].Value = "Ramazan Çavuş";
-            workSheet.Cells[2, 3].Value = "35";
-
-            var bytes = excel.GetAsByteArray();
-            return File(bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "dosya1.xlsx");
+            return File(_excelService.ExcelList(DestinationList()), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "YeniExcel.xlsx");
         }
 
         public IActionResult DestinationExcelReport()
@@ -69,7 +61,7 @@ namespace Traversal_Web_App.Controllers
                     rowCount += 1;
                 }
 
-                using(var stream = new MemoryStream())
+                using (var stream = new MemoryStream())
                 {
                     workBook.SaveAs(stream);
                     var content = stream.ToArray();
