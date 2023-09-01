@@ -34,6 +34,7 @@ namespace BusinnessLayer.Container
             services.AddScoped<IGuideService, GuideManager>();
             services.AddScoped<IExcelService, ExcelManager>();
             services.AddScoped<IPdfService, PdfManager>();
+            services.AddScoped<IContactUsService, ContactUsManager>();
         }
 
         public static void ConfigureDataAccess(this IServiceCollection services)
@@ -43,6 +44,7 @@ namespace BusinnessLayer.Container
             services.AddScoped<IAppUserDal, EFAppUserDal>();
             services.AddScoped<IReservationDal, EFReservationDal>();
             services.AddScoped<IGuideDal, EFGuideDal>();
+            services.AddScoped<IContactUsDal, EFContactUsDal>();
         }
 
         public static void ConfigureLogging(this IServiceCollection services)
