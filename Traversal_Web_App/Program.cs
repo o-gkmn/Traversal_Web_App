@@ -1,5 +1,4 @@
 using BusinnessLayer.Container;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 
@@ -13,6 +12,7 @@ builder.Services.ConfigureDataAccess();
 //builder.Services.ConfigureLogging();
 builder.Services.ConfigureValidator();
 builder.Services.AddControllersWithViews();
+builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddMvc(config =>
 {
@@ -34,6 +34,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
 
 app.UseStatusCodePagesWithReExecute("/ErrorPage/Error404", "?code={0}");
 app.UseHttpsRedirection();

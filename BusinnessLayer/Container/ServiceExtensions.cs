@@ -1,10 +1,13 @@
 ﻿using BusinnessLayer.Abstract;
 using BusinnessLayer.Concrate;
 using BusinnessLayer.ValidationRule;
+using BusinnessLayer.ValidationRule.AnnouncementValidationRules;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
+using DTOLayer.DTOs.AnnouncementDTOs;
 using EntityLayer.Concrete;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -35,6 +38,7 @@ namespace BusinnessLayer.Container
             services.AddScoped<IExcelService, ExcelManager>();
             services.AddScoped<IPdfService, PdfManager>();
             services.AddScoped<IContactUsService, ContactUsManager>();
+            services.AddScoped<IAnnouncementService, AnnouncementManager>();
         }
 
         public static void ConfigureDataAccess(this IServiceCollection services)
@@ -45,6 +49,7 @@ namespace BusinnessLayer.Container
             services.AddScoped<IReservationDal, EFReservationDal>();
             services.AddScoped<IGuideDal, EFGuideDal>();
             services.AddScoped<IContactUsDal, EFContactUsDal>();
+            services.AddScoped<IAnnouncementDal, EFAnnouncementDal>();
         }
 
         public static void ConfigureLogging(this IServiceCollection services)
@@ -66,6 +71,8 @@ namespace BusinnessLayer.Container
         public static void ConfigureValidator(this IServiceCollection services)
         {
             services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
+            services.AddTransient<IValidator<AnnouncementAddDto>, AnnouncementValidator>();
+            services.AddTransient<IValidator<AnnouncementUpdateDto>, AnnouncementUpdateValidator>();
         }
     }
 }
