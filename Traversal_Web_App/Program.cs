@@ -13,6 +13,7 @@ builder.Services.ConfigureDataAccess();
 builder.Services.ConfigureValidator();
 builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddHttpClient();
 
 builder.Services.AddMvc(config =>
 {
