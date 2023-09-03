@@ -1,10 +1,13 @@
 ﻿using BusinnessLayer.Abstract;
+using BusinnessLayer.Abstract.AbstractUow;
 using BusinnessLayer.Concrate;
+using BusinnessLayer.Concrate.ConcreteUow;
 using BusinnessLayer.ValidationRule;
 using BusinnessLayer.ValidationRule.AnnouncementValidationRules;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
+using DataAccessLayer.UnitOfWork;
 using DTOLayer.DTOs.AnnouncementDTOs;
 using EntityLayer.Concrete;
 using FluentValidation;
@@ -39,6 +42,7 @@ namespace BusinnessLayer.Container
             services.AddScoped<IPdfService, PdfManager>();
             services.AddScoped<IContactUsService, ContactUsManager>();
             services.AddScoped<IAnnouncementService, AnnouncementManager>();
+            services.AddScoped<IAccountService, AccountManager>();
         }
 
         public static void ConfigureDataAccess(this IServiceCollection services)
@@ -50,6 +54,9 @@ namespace BusinnessLayer.Container
             services.AddScoped<IGuideDal, EFGuideDal>();
             services.AddScoped<IContactUsDal, EFContactUsDal>();
             services.AddScoped<IAnnouncementDal, EFAnnouncementDal>();
+            services.AddScoped<IAccountDal, EFAccountDal>();
+
+            services.AddScoped<IUnitOfWorkDal, UowDal>();
         }
 
         public static void ConfigureLogging(this IServiceCollection services)
