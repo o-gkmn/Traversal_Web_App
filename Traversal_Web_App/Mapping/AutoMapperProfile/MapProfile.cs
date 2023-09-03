@@ -2,6 +2,8 @@
 using DTOLayer.DTOs.AnnouncementDTOs;
 using DTOLayer.DTOs.AppUserDTOs;
 using EntityLayer.Concrete;
+using Traversal_Web_App.CQRS.Commands.DestinationCommands;
+using Traversal_Web_App.CQRS.Results.DestinationResults;
 
 namespace Traversal_Web_App.Mapping.AutoMapperProfile
 {
@@ -14,6 +16,8 @@ namespace Traversal_Web_App.Mapping.AutoMapperProfile
             CreateMap<AnnouncementUpdateDto, Announcement>().ReverseMap();
             CreateMap<AppUserRegisterDTO, AppUser>().ReverseMap();
             CreateMap<AppUserLoginDTO, AppUser>().ReverseMap();
+
+            CreateMap<GetDestinationByIDQueryResult, UpdateDestinationCommand>().ReverseMap();
         }
     }
 }

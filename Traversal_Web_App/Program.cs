@@ -1,6 +1,8 @@
 using BusinnessLayer.Container;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Traversal_Web_App.CQRS.Handlers.DestinationHandlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,16 @@ builder.Services.ConfigureValidator();
 builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddHttpClient();
+
+
+builder.Services.AddScoped<GetAllDestinationQueryHandler>();
+builder.Services.AddScoped<GetDestinationByIDQueryHandler>();
+builder.Services.AddScoped<CreateDestinationCommandHandler>();
+builder.Services.AddScoped<RemoveDestinationCommandHandler>();
+builder.Services.AddScoped<UpdateDestinationCommandHandler>();
+
+builder.Services.AddMediatR(typeof(Program));
+
 
 builder.Services.AddMvc(config =>
 {
