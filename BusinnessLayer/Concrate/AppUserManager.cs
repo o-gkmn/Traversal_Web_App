@@ -13,6 +13,11 @@ namespace BusinnessLayer.Concrate
             _appUserDal = appUserDal;
         }
 
+        public AppUser FindByUserName(string name)
+        {
+            return _appUserDal.GetListByFilter(x => x.UserName == name).FirstOrDefault();
+        }
+
         public void TAdd(AppUser t)
         {
             throw new NotImplementedException();

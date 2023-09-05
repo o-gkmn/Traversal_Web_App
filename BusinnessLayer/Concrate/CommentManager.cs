@@ -33,19 +33,20 @@ namespace BusinnessLayer.Concrate
             return _commentDal.GetList();
         }
 
+        public List<Comment> TGetListCommentsByDestinationID(int id)
+        {
+            return _commentDal.GetListCommentsByDestinationID(id);
+        }
+
+        public List<Comment> TGetListCommentsWithRelations()
+        {
+            return _commentDal.GetListCommentsWithRelations();
+        }
+
         public void TUpdate(Comment t)
         {
-            throw new NotImplementedException();
+            _commentDal.Update(t);
         }
 
-        public List<Comment> TGetDestinationByID(int id)
-        {
-            return _commentDal.GetListByFilter(x => x.DestinationID.Equals(id)).ToList();
-        }
-
-        public List<Comment> TGetListCommentsWithDestination()
-        {
-            return _commentDal.GetListCommentsWithDestination();
-        }
     }
 }

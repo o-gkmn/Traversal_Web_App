@@ -15,7 +15,7 @@ namespace Traversal_Web_App.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            var values = _commentManager.TGetListCommentsWithDestination();
+            var values = _commentManager.TGetListCommentsWithRelations();
             return View(values);
         }
 

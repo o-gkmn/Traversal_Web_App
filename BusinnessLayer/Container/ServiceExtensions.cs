@@ -43,6 +43,7 @@ namespace BusinnessLayer.Container
             services.AddScoped<IContactUsService, ContactUsManager>();
             services.AddScoped<IAnnouncementService, AnnouncementManager>();
             services.AddScoped<IAccountService, AccountManager>();
+            services.AddScoped<ICommentService, CommentManager>();
         }
 
         public static void ConfigureDataAccess(this IServiceCollection services)
@@ -55,6 +56,7 @@ namespace BusinnessLayer.Container
             services.AddScoped<IContactUsDal, EFContactUsDal>();
             services.AddScoped<IAnnouncementDal, EFAnnouncementDal>();
             services.AddScoped<IAccountDal, EFAccountDal>();
+            services.AddScoped<ICommentDal, EFCommentDal>();
 
             services.AddScoped<IUnitOfWorkDal, UowDal>();
         }

@@ -1,9 +1,11 @@
 ﻿using BusinnessLayer.Abstract;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Traversal_Web_App.Controllers
 {
+    [AllowAnonymous]
     public class DestinationController : Controller
     {
         private readonly IDestinationService _destinationManager;
@@ -23,14 +25,15 @@ namespace Traversal_Web_App.Controllers
         public IActionResult DestinationDetails(int id)
         {
             ViewBag.i = id;
+            ViewBag.destID = id;
             var value = _destinationManager.TGetById(id);
             return View(value);
         }
 
-        [HttpPost]
-        public IActionResult DestinationDetails(Destination p)
-        {
-            return View();
-        }
+        //[HttpPost]
+        //public IActionResult DestinationDetails(Destination p)
+        //{
+        //    return View();
+        //}
     }
 }
