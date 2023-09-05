@@ -1,15 +1,28 @@
-﻿<div class="leave-comment-form mt-5" id="reply">
+﻿@{
+    var isDeactive = true;
+    var placeHolder = "Yorum yapmak için üye olun!";
+
+    if (User.Identity.IsAuthenticated)
+    {
+        isDeactive = false;
+        placeHolder = "Yorumunuz";
+    }
+}
+
+<div class="leave-comment-form mt-5" id="reply">
     <h4 class="side-title mb-2">Bir Yorum Bırakın</h4>
     <form method="post" asp-action="AddComment" asp-controller="Comment">
         <input type="hidden" name="DestinationID" value="@ViewBag.destID" />
         <div class="form-group">
-            <textarea name="CommentContent" class="form-control" placeholder="Yorumunuz" required=""
-                      spellcheck="false"></textarea>
+            <textarea name="CommentContent" class="form-control" placeholder="@placeHolder" required=""
+                      spellcheck="false" readonly="@isDeactive"></textarea>
         </div>
         <div class="submit text-right">
-            <button class="btn btn-style btn-primary">Yorum Yap </button>
+            <button class="btn btn-style btn-primary" hidden="@isDeactive">
+                Yorum Yap
+            </button>
         </div>
     </form>
-</div>
+    </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js0" type="text/javascript"></script>

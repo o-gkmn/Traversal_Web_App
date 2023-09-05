@@ -26,14 +26,8 @@ namespace Traversal_Web_App.Controllers
         {
             ViewBag.i = id;
             ViewBag.destID = id;
-            var value = _destinationManager.TGetById(id);
+            var value = _destinationManager.TGetDestinationWithGuide(id);
             return View(value);
         }
-
-        //[HttpPost]
-        //public IActionResult DestinationDetails(Destination p)
-        //{
-        //    return View();
-        //}
     }
 }

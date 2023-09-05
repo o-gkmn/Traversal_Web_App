@@ -12,8 +12,7 @@ builder.Services.ConfigureIdentity();
 builder.Services.ConfigureServices();
 builder.Services.ConfigureDataAccess();
 //builder.Services.ConfigureLogging();
-builder.Services.ConfigureValidator();
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddHttpClient();
 
@@ -37,6 +36,7 @@ builder.Services.AddMvc(config =>
 
 builder.Services.AddMvc();
 
+builder.Services.ConfigureValidator();
 
 var app = builder.Build();
 

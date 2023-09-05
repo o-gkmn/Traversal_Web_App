@@ -4,11 +4,13 @@ using BusinnessLayer.Concrate;
 using BusinnessLayer.Concrate.ConcreteUow;
 using BusinnessLayer.ValidationRule;
 using BusinnessLayer.ValidationRule.AnnouncementValidationRules;
+using BusinnessLayer.ValidationRule.ContactUs;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using DataAccessLayer.UnitOfWork;
 using DTOLayer.DTOs.AnnouncementDTOs;
+using DTOLayer.DTOs.ContactDTOs;
 using EntityLayer.Concrete;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -44,6 +46,7 @@ namespace BusinnessLayer.Container
             services.AddScoped<IAnnouncementService, AnnouncementManager>();
             services.AddScoped<IAccountService, AccountManager>();
             services.AddScoped<ICommentService, CommentManager>();
+            services.AddScoped<IContactUsService, ContactUsManager>();
         }
 
         public static void ConfigureDataAccess(this IServiceCollection services)
@@ -57,6 +60,7 @@ namespace BusinnessLayer.Container
             services.AddScoped<IAnnouncementDal, EFAnnouncementDal>();
             services.AddScoped<IAccountDal, EFAccountDal>();
             services.AddScoped<ICommentDal, EFCommentDal>();
+            services.AddScoped<IContactUsDal, EFContactUsDal>();
 
             services.AddScoped<IUnitOfWorkDal, UowDal>();
         }
@@ -80,8 +84,9 @@ namespace BusinnessLayer.Container
         public static void ConfigureValidator(this IServiceCollection services)
         {
             services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
-            services.AddTransient<IValidator<AnnouncementAddDto>, AnnouncementValidator>();
-            services.AddTransient<IValidator<AnnouncementUpdateDto>, AnnouncementUpdateValidator>();
+            services.AddScoped<IValidator<AnnouncementAddDto>, AnnouncementValidator>();
+            services.AddScoped<IValidator<AnnouncementUpdateDto>, AnnouncementUpdateValidator>();
+            services.AddScoped<IValidator<SendMessageDto>, SendContactUsValidator>();
         }
     }
 }
