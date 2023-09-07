@@ -1,5 +1,4 @@
-﻿using BusinnessLayer.Concrate;
-using DataAccessLayer.EntityFramework;
+﻿using BusinnessLayer.Abstract;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,8 +7,13 @@ namespace Traversal_Web_App.Areas.Admin.Controllers
     [Area("Admin")]
     public class DestinationController : Controller
     {
-        private readonly DestinationManager _destinationManager = new DestinationManager(new EFDestinationDal());
-        
+        private readonly IDestinationService _destinationManager;
+
+        public DestinationController(IDestinationService destinationManager)
+        {
+            _destinationManager = destinationManager;
+        }
+
         public IActionResult Index()
         {
             var values = _destinationManager.TGetList();

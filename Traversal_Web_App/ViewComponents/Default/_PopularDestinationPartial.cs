@@ -1,16 +1,20 @@
-﻿using BusinnessLayer.Concrate;
-using DataAccessLayer.EntityFramework;
+﻿using BusinnessLayer.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Traversal_Web_App.ViewComponents.Default
 {
     public class _PopularDestinationPartial : ViewComponent
     {
-        DestinationManager destinationManager = new DestinationManager(new EFDestinationDal());
+        private readonly IDestinationService _destinationManager;
+
+        public _PopularDestinationPartial(IDestinationService destinationManager)
+        {
+            _destinationManager = destinationManager;
+        }
 
         public IViewComponentResult Invoke()
         {
-            var values = destinationManager.TGetList();
+            var values = _destinationManager.TGetList();
             return View(values);
         }
     }

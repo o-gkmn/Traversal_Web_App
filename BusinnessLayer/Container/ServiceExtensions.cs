@@ -14,6 +14,7 @@ using DTOLayer.DTOs.ContactDTOs;
 using EntityLayer.Concrete;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -30,7 +31,8 @@ namespace BusinnessLayer.Container
         {
             services.AddIdentity<AppUser, AppRole>()
                 .AddEntityFrameworkStores<Context>()
-                .AddErrorDescriber<CustomIdentityValidator>();
+                .AddErrorDescriber<CustomIdentityValidator>()
+                .AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider);
         }
 
         public static void ConfigureServices(this IServiceCollection services)
