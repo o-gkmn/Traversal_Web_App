@@ -33,6 +33,11 @@ namespace BusinnessLayer.Concrate
             return _destinationDal.GetDestinationWithGuide(id);
         }
 
+        public List<Destination> TGetLastFourDestinations()
+        {
+            return _destinationDal.GetLastFourDestinations();
+        }
+
         public List<Destination> TGetList()
         {
             return _destinationDal.GetList();
