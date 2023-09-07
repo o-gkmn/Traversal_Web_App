@@ -9,10 +9,12 @@ namespace Traversal_Web_App.Areas.Admin.Controllers
     public class RoleController : Controller
     {
         private readonly RoleManager<AppRole> _roleManager;
+        private readonly UserManager<AppUser> _userManager;
 
-        public RoleController(RoleManager<AppRole> roleManager)
+        public RoleController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager)
         {
             _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -73,6 +75,51 @@ namespace Traversal_Web_App.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             return View(value);
+        }
+
+        [HttpGet]
+        public IActionResult UserList()
+        {
+            var values = _userManager.Users.ToList();
+            return View(values);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AssignRole(int id)
+        {
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == id);
+            TempData["Userid"] = user.Id;
+            var roles = _roleManager.Roles.ToList();
+            var userRoles = await _userManager.GetRolesAsync(user);
+            List<RoleAssignViewModel> roleAssignViewModel = new();
+            foreach (var item in roles)
+            {
+                RoleAssignViewModel model = new();
+                model.RoleId = item.Id;
+                model.RoleName = item.Name;
+                model.RoleExists = userRoles.Contains(item.Name);
+                roleAssignViewModel.Add(model);
+            }
+            return View(roleAssignViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AssignRole(List<RoleAssignViewModel> model)
+        {
+            var userId = (int) TempData["Userid"];
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == userId);
+            foreach (var item in model)
+            {
+                if (item.RoleExists)
+                {
+                    await _userManager.AddToRoleAsync(user, item.RoleName);
+                }
+                else
+                {
+                    await _userManager.RemoveFromRoleAsync(user, item.RoleName);
+                }
+            }
+            return RedirectToAction("UserList", "Role");
         }
     }
 }
